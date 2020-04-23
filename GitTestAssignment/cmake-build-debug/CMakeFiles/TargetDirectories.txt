@@ -1,0 +1,3 @@
+/cygdrive/c/Users/kev_j/GitFolder/GitTestAssignment/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/kev_j/GitFolder/GitTestAssignment/cmake-build-debug/CMakeFiles/GitTestAssignment.dir
+/cygdrive/c/Users/kev_j/GitFolder/GitTestAssignment/cmake-build-debug/CMakeFiles/edit_cache.dir
