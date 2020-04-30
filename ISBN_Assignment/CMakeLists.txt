@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(CompilerSetup)
-add_executable(ISBN_Assignment main.cpp ISBN.cpp ISBN.h)
+add_executable(ISBN_Assignment main.cpp)
 
 enable_warnings_for(ISBN_Assignment)
 

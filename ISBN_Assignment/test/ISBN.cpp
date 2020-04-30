@@ -4,11 +4,12 @@
 
 #include <gtest/gtest.h>
 
-#include "../ISBN.h"
+#include "../main.cpp"
 
-TEST(isbn_10, False) {
+/*TEST(isbn_10, False) {
     ISBN o;
     EXPECT_FALSE(o.is_valid_isbn_10("111"));
+    EXPECT_FALSE(o.is_valid_isbn_10("12345678X9"));
 }
 
 TEST(isbn_10, True) {
@@ -16,35 +17,18 @@ TEST(isbn_10, True) {
     EXPECT_TRUE(o.is_valid_isbn_10("1111111111"));
     EXPECT_TRUE(o.is_valid_isbn_10("111111111X"));
     EXPECT_TRUE(o.is_valid_isbn_10("123-456-789-X"));
-}
+}*/
 
-TEST(isbn_13, False) {
-    ISBN o;
-    EXPECT_FALSE(o.is_valid_isbn_13("123456789012"));
-}
-
-TEST(isbn_13, True) {
-    ISBN o;
-    EXPECT_TRUE(o.is_valid_isbn_13("1234567890123"));
-    EXPECT_TRUE(o.is_valid_isbn_13("123-45678-9012-3"));
-}
-
-TEST(remove_dashes, True) {
-    ISBN o;
-    EXPECT_EQ(o.remove_dashes("123-456-789-0"), "1234567890");
-    EXPECT_EQ(o.remove_dashes("1234-5678-9012-3"), "1234567890123");
-}
-
-TEST(isbn_10_calculation, testalpha) {
-    std::string test;
-    ISBN o;
-    test = o.remove_dashes("0-486-63760-3");
-    EXPECT_EQ(o.isbn_10_calculation(test), '3');
+TEST(isbn_10_calculation, calculation) {
+    EXPECT_EQ(isbn_10_calculation("0-486-63760-3"), 242);
+    //EXPECT_EQ(isbn_10_calculation())
 }
 
 TEST(isbn_10_calculation, testx) {
-    std::string test;
-    ISBN o;
-    test = o.remove_dashes("0-521-33781-X");
-    EXPECT_EQ(o.isbn_10_calculation(test), ' ');
+    EXPECT_EQ(isbn_10_calculation("0-521-33781-X"), 165);
+}
+
+TEST(isbn_13_calculation, calculation) {
+    EXPECT_EQ(isbn_13_calculation("978-3-642-43001-5"), 90);
+    EXPECT_EQ(isbn_13_calculation("978-0-387-51768-1"), 140);
 }

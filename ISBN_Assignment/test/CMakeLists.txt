@@ -1,7 +1,7 @@
 include(GetGoogletest)
 include(GoogleTest)
 
-add_executable(unit_tests ../ISBN.h ../ISBN.cpp ISBN.cpp)
+add_executable(unit_tests ../main.cpp ISBN.cpp)
 target_link_libraries(unit_tests
         GTest::gtest
         GTest::gtest_main
