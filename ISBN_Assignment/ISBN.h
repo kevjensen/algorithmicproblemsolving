@@ -6,12 +6,16 @@
 #define ISBN_ASSIGNMENT_ISBN_H
 
 #include <string>
+#include <iostream>
 
 class ISBN {
 public:
-    std::string isbn_10 (std::string input);
+    char isbn_10_calculation(const std::string &input);
+    char isbn_13_calculation(const std::string &input);
+    std::string remove_dashes(const std::string &input);
+    bool is_valid_isbn_10(const std::string &input);
+    bool is_valid_isbn_13(const std::string &input);
 
-private:
 };
 
 
