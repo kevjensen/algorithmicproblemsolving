@@ -1,64 +1,39 @@
 #include <iostream>
 #include <string>
 
-int isbn_10_calculation(const std::string &input);
-int isbn_13_calculation(const std::string &input);
+#include "ISBN.h"
 
 int main() {
-    // use a switch statement at the end to go through the cases I can
-    // have
+    // Variables for user input and counts to check the validity of inputs with "X"
+    std::string input;
+    int count = 0;
+    int x_count = 0;
+
+    std::cout << "Please enter an ISBN: ";
+    std::cin >> input;
+
+    // Checks for if 'X' is in the correct position and if the input only has 1. If not it prints a warning.
+    // I originally had these in my calculation loops but I couldn't get the print to resemble the example on
+    // canvas, so I moved them here
+    for (unsigned long i = 0; i < input.length(); ++i) {
+        if (input[i] == 'X') {
+            ++x_count;
+        }
+    }
+    for (unsigned long i = 0; i < input.length(); ++i) {
+        ++count;
+        if ((input[i] == 'X' || input[i] == 'x') && count < 9) {
+            std::cout << "X can only occur as a check digit.\n";
+            break;
+        }
+    }
+    if (x_count > 1) {
+        std::cout << "Invalid number of Xs.\n";
+    }
+
+    std::cout << "The input " << input << " is:\n";
+    std::cout << isbn_10_calculation(input) << "\n";
+    std::cout << isbn_13_calculation(input);
+
     return 0;
-}
-
-int isbn_10_calculation(const std::string &input) {
-    int total = 0;
-    int count = 0;
-    int coefficient = 10;
-    for (unsigned long i = 0; i < input.length(); ++i) {
-        if (isdigit(input[i])) {
-            ++count;
-            total += (input[i] - '0') * coefficient;
-            --coefficient;
-        } else if (input[i] == 'X') {
-            if (count != 9) {
-                return 3;
-            } else {
-                ++count;
-                total += 10;
-            }
-        }
-    }
-    if (count != 10) {
-        return 2;
-    }
-    // return static_cast<char>((num_for_calculation % 11) + '0');
-    return total;
-}
-
-int isbn_13_calculation(const std::string &input) {
-    // Total value of string
-    int total = 0;
-    // Number of digits in string
-    int count = 0;
-    // Boolean value to determine if the respective digit will be multiplied by 3
-    bool multiply_by_three = false;
-
-    for (unsigned long i = 0; i < input.length(); ++i) {
-        if (isdigit(input[i])) {
-            // Add to count to verify correct amount of digits
-            ++count;
-            if (!multiply_by_three) {
-                total += input[i] - '0';
-            } else {
-                total += (input[i] - '0') * 3;
-            }
-        }
-        // Toggle to multiply by 3. I could just use modulo but I want to try this operation out
-        multiply_by_three ^= true;
-    }
-    if (count != 13) {
-        return 2;
-    }
-    //return static_cast<char>(num_for_calculation % 10 + '0');
-    return total;
 }
