@@ -55,11 +55,19 @@ bool bcrypt_check(const std::string &pass, const std::string &hash) {
 bool scrypt_hash(const std::string &passphrase, const std::vector<uint8_t> &salt,
                  const std::vector<uint8_t> &output, const size_t &N, const size_t &R,
                  const size_t &P) {
-    auto pwdhash_fam = Botan::PasswordHashFamily::create("Scrpyt");
+
+    auto pwdhash_fam = Botan::PasswordHashFamily::create("Scrypt");
+
+    if(!pwdhash_fam)
+    {
+        std::cout << "Scrypt is missing PasswordHashFamily";
+        return false;
+    }
 
     auto pwdhash = pwdhash_fam->from_params(N, R, P);
 
     std::vector<uint8_t> pwdhash_derived(output.size());
+
     pwdhash->derive_key(pwdhash_derived.data(), pwdhash_derived.size(),
                         passphrase.c_str(), passphrase.size(), salt.data(), salt.size());
 

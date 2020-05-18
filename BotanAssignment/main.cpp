@@ -24,6 +24,7 @@ int main() {
     sha_256_iterated_timed(1);
     pbdkf2_timed(10);
     bcrypt_timed(5);
+    scrypt_timed(5);
     argon2id_timed(5);
     return 0;
 }
@@ -218,9 +219,10 @@ void scrypt_timed(int iterations) {
     for (int i = 0; i != iterations; ++i) {
         start = clock::now();
 
-        std::string input = "";
-        std::string output = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855";
-        botan_256_hash(input, output);
+        scrypt_hash("",
+                    Botan::hex_decode(""),
+                    Botan::hex_decode("77D6576238657B203B19CA42C18A0497F16B4844E3074AE8DFDFFA3FEDE21442FCD0069DED0948F8326A753A0FC81F17E8D3E0FB2E0D3628CF35E20C38D18906"),
+                    16, 1, 1);
 
         using namespace std::chrono_literals;
         std::this_thread::sleep_for(1s);
