@@ -9,6 +9,20 @@
 TEST(sha_256_1k, validation) {
 
     double time(30);
-   EXPECT_EQ(time, timed_256(2, alpha_upper, 1000));
+   EXPECT_EQ(time, timed_256(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 100, 1000));
 
 }
+
+TEST(sha_256_10k, validation) {
+
+    double time(30);
+    EXPECT_EQ(time, timed_256(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 100, 10000));
+
+}
+
+/*TEST(sha_256_100k, validation) {
+
+    double time(30);
+    EXPECT_EQ(time, timed_256(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 1000, 100000));
+
+}*/

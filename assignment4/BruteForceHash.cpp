@@ -4,7 +4,7 @@
 
 #include "BruteForceHash.h"
 
-double timed_256(const unsigned &pass_length, const std::string &alpha, const int iterations) {
+double timed_256(const unsigned &pass_length, const std::string &alpha, int iterations, int func_iterations) {
 
     // Declare counter for the amount of iterations and clock to time it
     int i = 0;
@@ -17,9 +17,9 @@ double timed_256(const unsigned &pass_length, const std::string &alpha, const in
     // Hashing loop
     while (i < iterations) {
         for (const auto &word : BruteForce(alpha, pass_length)) {
-            check_sha256_iterated(word, expected, 1000, buffer);
-            ++i;
+            check_sha256_iterated(word, expected, func_iterations, buffer);
         }
+        ++i;
 }
 
     using namespace std::chrono_literals;
