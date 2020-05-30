@@ -1,7 +1,8 @@
 include(GetGoogletest)
 include(GoogleTest)
 
-add_executable(unit_tests ../Botan.cpp Botan.cpp BruteForceHash.cpp)
+add_executable(unit_tests ../Botan.cpp ../Botan.h ../BruteForceIterator.cpp ../BruteForceIterator.h BruteForceHash.cpp ../BruteForceHash.cpp
+        ../BruteForceHash.h)
 target_link_libraries(unit_tests
         GTest::gtest
         GTest::gtest_main
