@@ -7,7 +7,7 @@
 double timed_256(const unsigned &pass_length, const std::string &alpha, int iterations, int func_iterations) {
 
     // Declare counter for the amount of iterations and clock to time it
-    int i = 0;
+    int counter = 0;
     using clock = std::chrono::high_resolution_clock;
     std::chrono::time_point<clock> start, end;
     auto expected = Botan::hex_decode("E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855");
@@ -15,69 +15,81 @@ double timed_256(const unsigned &pass_length, const std::string &alpha, int iter
 
     start = clock::now();
     // Hashing loop
-    while (i < iterations) {
-        for (const auto &word : BruteForce(alpha, pass_length)) {
-            check_sha256_iterated(word, expected, func_iterations, buffer);
+    for (const auto &word : BruteForce(alpha, pass_length)) {
+        check_sha256_iterated(word, expected, func_iterations, buffer);
+        ++counter;
+
+        if (counter > iterations) {
+            break;
         }
-        ++i;
-}
+    }
 
     using namespace std::chrono_literals;
     std::this_thread::sleep_for(1s);
     end = clock::now();
+
     // Seconds
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "Elapsed time: " << elapsed_seconds.count() << "s\n";
+
     return elapsed_seconds.count();
 
 }
 
-/*void timed_bcrypt(unsigned pass_length, std::string alpha, int iterations) {
+double timed_bcrypt(const unsigned &pass_length, const std::string &alpha, int iterations) {
 
     // Declare counter for the amount of functions
-    int i = 0;
+    int counter = 0;
     using clock = std::chrono::high_resolution_clock;
     std::chrono::time_point<clock> start, end;
 
     start = clock::now();
 
     // Hashing loop
-    while (i < iterations) {
-        for (const auto &word : BruteForce(alpha, pass_length)) {
-            //check_bcrypt(word, const std::string &expected)
-            ++i;
+    for (const auto &word : BruteForce(alpha, pass_length)) {
+        check_bcrypt(word, "$2a$05$CCCCCCCCCCCCCCCCCCCCC.7uG0VCzI2bS7j6ymqJi9CdcdxiRTWNy");
+        ++counter;
+
+        if (counter > iterations) {
+            break;
         }
     }
 
     using namespace std::chrono_literals;
     std::this_thread::sleep_for(1s);
     end = clock::now();
+
     // Seconds
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "Elapsed time: " << elapsed_seconds.count() << "s\n";
+
+    return elapsed_seconds.count();
+
 }
 
-void timed_argon2(unsigned pass_length, std::string alpha, int iterations) {
+double timed_argon2(const unsigned &pass_length, const std::string &alpha, int iterations) {
 
     // Declare counter for the amount of functions
-    int i = 0;
+    int counter = 0;
     using clock = std::chrono::high_resolution_clock;
     std::chrono::time_point<clock> start, end;
 
     start = clock::now();
 
     // Hashing loop
-    while (i < iterations) {
-        for (const auto &word : BruteForce(alpha, pass_length)) {
-            //check_argon2(word, const std::string &expected)
-            ++i;
+    for (const auto &word : BruteForce(alpha, pass_length)) {
+        check_argon2(word, "$argon2i$v=19$m=8,t=1,p=1$YWFhYWFhYWE$3ney028aI7naIJ/5U///1ICfSVF0Ta4jh2SpJ1jhsCE");
+        ++counter;
+
+        if (counter > iterations) {
+            break;
         }
     }
 
     using namespace std::chrono_literals;
     std::this_thread::sleep_for(1s);
     end = clock::now();
+
     // Seconds
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout << "Elapsed time: " << elapsed_seconds.count() << "s\n";
-}*/
+
+    return elapsed_seconds.count();
+}

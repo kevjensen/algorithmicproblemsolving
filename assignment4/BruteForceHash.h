@@ -18,9 +18,9 @@
 
 double timed_256(const unsigned &pass_length, const std::string &alpha, int iterations, int func_iterations);
 
-void timed_bcrypt(const unsigned &pass_length, const std::string &alpha, int iterations);
+double timed_bcrypt(const unsigned &pass_length, const std::string &alpha, int iterations);
 
-void timed_argon2(const unsigned &pass_length, const std::string &alpha, int iterations);
+double timed_argon2(const unsigned &pass_length, const std::string &alpha, int iterations);
 
 //std::string alpha_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
